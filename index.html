@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantity Measurement App</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Welcome To Quantity Measurement</h1>
+        <div class="header-actions">
+            <button id="history-btn" class="nav-btn">History</button>
+            <button id="logout-btn" class="nav-btn secondary">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Choose Type Section -->
+        <section class="section">
+            <h2 class="section-title">CHOOSE TYPE</h2>
+            <div class="card-grid" id="type-cards">
+                <div class="type-card active" data-type="length">
+                    <div class="icon-container">📏</div>
+                    <span>Length</span>
+                </div>
+                <div class="type-card" data-type="weight">
+                    <div class="icon-container">⚖️</div>
+                    <span>Weight</span>
+                </div>
+                <div class="type-card" data-type="temperature">
+                    <div class="icon-container">🌡️</div>
+                    <span>Temperature</span>
+                </div>
+                <div class="type-card" data-type="volume">
+                    <div class="icon-container">🧊</div>
+                    <span>Volume</span>
+                </div>
+                <div class="type-card" data-type="angle">
+                    <div class="icon-container">📐</div>
+                    <span>Angle</span>
+                </div>
+                <div class="type-card" data-type="area">
+                    <div class="icon-container">⬛</div>
+                    <span>Area</span>
+                </div>
+                <div class="type-card" data-type="energy">
+                    <div class="icon-container">⚡</div>
+                    <span>Energy</span>
+                </div>
+                <div class="type-card" data-type="power">
+                    <div class="icon-container">🔋</div>
+                    <span>Power</span>
+                </div>
+                <div class="type-card" data-type="pressure">
+                    <div class="icon-container">🎈</div>
+                    <span>Pressure</span>
+                </div>
+                <div class="type-card" data-type="speed">
+                    <div class="icon-container">🏎️</div>
+                    <span>Speed</span>
+                </div>
+                <div class="type-card" data-type="time">
+                    <div class="icon-container">⏱️</div>
+                    <span>Time</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Choose Action Section -->
+        <section class="section">
+            <h2 class="section-title">CHOOSE ACTION</h2>
+            <div class="action-tabs" id="action-tabs">
+                <button class="action-tab active" data-action="comparison">Comparison</button>
+                <button class="action-tab" data-action="conversion">Conversion</button>
+                <button class="action-tab" data-action="arithmetic">Arithmetic</button>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section class="section input-section glass-panel">
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="from-value">FROM</label>
+                    <input type="number" id="from-value" class="value-input" placeholder="0" value="1">
+                    <select id="from-unit" class="unit-select">
+                        <option value="Kilometer">Kilometer</option>
+                        <option value="Meter">Meter</option>
+                        <option value="Centimeter">Centimeter</option>
+                    </select>
+                </div>
+
+                <div class="action-divider">
+                    <span id="operation-icon" class="operation-icon">➔</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="to-value">TO</label>
+                    <input type="number" id="to-value" class="value-input" placeholder="0" value="1000">
+                    <select id="to-unit" class="unit-select">
+                        <option value="Meter">Meters</option>
+                        <option value="Kilometer">Kilometers</option>
+                        <option value="Centimeter">Centimeters</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Validation/Result Error Box -->
+            <div id="result-message" class="result-message hidden"></div>
+            
+            <div id="standard-action-container" class="action-button-container">
+                <button id="execute-btn" class="primary-btn">Compare</button>
+            </div>
+            <div id="arithmetic-action-container" class="action-button-container hidden" style="display: none; gap: 10px; justify-content: center;">
+                <button id="add-btn" class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;">Add</button>
+                <button id="sub-btn" class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;">Subtract</button>
+                <button id="mul-btn" class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;">Multiply</button>
+                <button id="div-btn" class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;">Divide</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Script tags -->
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Quantity Measurement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-color), #e3eeff);
+        }
+        .auth-card {
+            max-width: 400px;
+            width: 100%;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .auth-card h2 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(77, 113, 255, 0.2);
+        }
+        .auth-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+        .auth-link {
+            display: block;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .auth-link:hover {
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="glass-panel auth-card">
+            <h2>Welcome Back</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-input" required placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required placeholder="Enter your password">
+                </div>
+                <div id="auth-message" class="result-message hidden"></div>
+                <button type="submit" class="primary-btn auth-btn">Login</button>
+            </form>
+            <a href="register.html" class="auth-link">Don't have an account? <strong>Register here</strong></a>
+        </div>
+    </div>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
