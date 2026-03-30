@@ -20,7 +20,7 @@ export const UNIT_DATA: Record<string, string[]> = {
   providedIn: 'root'
 })
 export class MeasurementService {
-  private apiUrl = 'http://localhost:5000/api/measurement';
+  private apiUrl = 'http://localhost:5003/api/measurement';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

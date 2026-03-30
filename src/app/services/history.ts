@@ -6,7 +6,7 @@ import { AuthService } from './auth';
   providedIn: 'root'
 })
 export class HistoryService {
-  private apiUrl = 'http://localhost:5000/api/measurement/history';
+  private apiUrl = 'http://localhost:5003/api/measurement/history';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
