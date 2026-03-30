@@ -1,0 +1,18 @@
+<div class="auth-container">
+    <div class="glass-panel auth-card">
+        <h2>Welcome Back</h2>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" class="form-input" required placeholder="Enter your username" [(ngModel)]="username" name="username">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-input" required placeholder="Enter your password" [(ngModel)]="password" name="password">
+            </div>
+            <div id="auth-message" class="result-message" [class.hidden]="!message" [class.success]="isSuccess" [class.error]="!isSuccess">{{ message }}</div>
+            <button type="submit" class="primary-btn auth-btn" [disabled]="isLoading">{{ isLoading ? 'Logging in...' : 'Login' }}</button>
+        </form>
+        <a routerLink="/register" class="auth-link">Don't have an account? <strong>Register here</strong></a>
+    </div>
+</div>

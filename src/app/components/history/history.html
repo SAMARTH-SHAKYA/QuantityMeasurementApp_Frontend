@@ -1,0 +1,38 @@
+<main class="history-container">
+    <div class="glass-panel">
+        <div class="history-header">
+            <h2>Past Operations</h2>
+            <a routerLink="/dashboard" class="back-btn">← Back to Dashboard</a>
+        </div>
+        
+        <div *ngIf="errorMessage" class="result-message error">{{ errorMessage }}</div>
+        
+        <div class="table-container" *ngIf="historyItems.length > 0 && !isLoading">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Action</th>
+                        <th>Value 1</th>
+                        <th>Value 2</th>
+                        <th>Result</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of historyItems">
+                        <td><span class="badge" [ngClass]="getBadgeClass(item.measurementType)">{{ item.measurementType || 'Unknown' }}</span></td>
+                        <td>{{ item.operationType || 'N/A' }}</td>
+                        <td>{{ item.firstOperand || '-' }}</td>
+                        <td>{{ item.secondOperand || '-' }}</td>
+                        <td><strong>{{ item.hasError ? 'Error: ' + item.errorMessage : (item.finalResult || '-') }}</strong></td>
+                        <td>{{ item.timestamp | date:'MMM d, hh:mm a' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div *ngIf="isLoading" class="loading">Loading history...</div>
+        <div *ngIf="historyItems.length === 0 && !isLoading" class="empty-state">No measurement history found. Go make some!</div>
+    </div>
+</main>
