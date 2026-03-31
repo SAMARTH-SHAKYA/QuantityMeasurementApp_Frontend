@@ -104,7 +104,7 @@ export class Dashboard implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.message = err.error?.Error || err.error?.message || err.message || 'Action failed';
+    this.message = err.error?.error || err.error?.Error || err.error?.message || err.message || 'Action failed';
     this.isSuccess = false;
   }
 

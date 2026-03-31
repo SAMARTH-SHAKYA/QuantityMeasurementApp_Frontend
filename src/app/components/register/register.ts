@@ -47,7 +47,7 @@ export class Register {
         if (err.error?.errors?.Email) {
           this.message = 'invalid email re - enter';
         } else {
-          this.message = err.error?.Error || err.error?.message || err.message || 'Failed to register';
+          this.message = err.error?.error || err.error?.Error || err.error?.message || err.message || 'Failed to register';
         }
         this.isSuccess = false;
         this.isLoading = false;

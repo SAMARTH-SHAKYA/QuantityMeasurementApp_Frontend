@@ -34,7 +34,7 @@ export class Login {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        const errorMsg = err.error?.Error || err.error?.message || err.message || 'Failed to login';
+        const errorMsg = err.error?.error || err.error?.Error || err.error?.message || err.message || 'Failed to login';
         if (errorMsg === 'not register') {
           this.message = 'not register';
           this.isSuccess = false;
