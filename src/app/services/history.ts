@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HistoryService {
-  private apiUrl = 'http://localhost:5003/api/measurement/history';
+  private apiUrl = `${environment.apiUrl}/measurement/history`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

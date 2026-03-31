@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth';
+import { environment } from '../../environments/environment';
 
 export const UNIT_DATA: Record<string, string[]> = {
     length: ['Feet', 'Inch', 'Yard', 'Centimeter'],
@@ -20,7 +21,7 @@ export const UNIT_DATA: Record<string, string[]> = {
   providedIn: 'root'
 })
 export class MeasurementService {
-  private apiUrl = 'http://localhost:5003/api/measurement';
+  private apiUrl = `${environment.apiUrl}/measurement`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
