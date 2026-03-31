@@ -34,8 +34,17 @@ export class Login {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        this.message = err.error?.Error || err.error?.message || err.message || 'Failed to login';
-        this.isSuccess = false;
+        const errorMsg = err.error?.Error || err.error?.message || err.message || 'Failed to login';
+        if (errorMsg === 'not register') {
+          this.message = 'not register';
+          this.isSuccess = false;
+          setTimeout(() => {
+            this.router.navigate(['/register']);
+          }, 1500);
+        } else {
+          this.message = errorMsg;
+          this.isSuccess = false;
+        }
         this.isLoading = false;
       }
     });

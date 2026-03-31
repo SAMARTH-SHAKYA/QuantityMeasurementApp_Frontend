@@ -26,6 +26,7 @@ export class Dashboard implements OnInit {
   unit1: string = '';
   value2: number | string = 1000;
   unit2: string = '';
+  targetUnit: string = '';
 
   message = '';
   isSuccess = false;
@@ -70,6 +71,7 @@ export class Dashboard implements OnInit {
     this.availableUnits = this.unitData[this.currentType];
     this.unit1 = this.availableUnits[0];
     this.unit2 = this.availableUnits.length > 1 ? this.availableUnits[1] : this.availableUnits[0];
+    this.targetUnit = this.availableUnits[0];
   }
 
   get isConversion() { return this.currentAction === 'conversion'; }
@@ -160,7 +162,7 @@ export class Dashboard implements OnInit {
     const body = {
         Quantity1: { Value: this.value1, Unit: this.unit1, MeasurementType: this.currentType },
         Quantity2: { Value: v2, Unit: this.unit2, MeasurementType: this.currentType },
-        TargetUnit: this.unit1
+        TargetUnit: this.targetUnit
     };
 
     this.measurementService.arithmetic(operation, body).subscribe({

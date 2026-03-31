@@ -44,7 +44,11 @@ export class Register {
         }, 1500);
       },
       error: (err) => {
-        this.message = err.error?.Error || err.error?.message || err.message || 'Failed to register';
+        if (err.error?.errors?.Email) {
+          this.message = 'invalid email re - enter';
+        } else {
+          this.message = err.error?.Error || err.error?.message || err.message || 'Failed to register';
+        }
         this.isSuccess = false;
         this.isLoading = false;
       }
