@@ -19,7 +19,12 @@ export class App {
   }
 
   goToHistory() {
-    this.router.navigate(['/history']);
+    if (this.authService.getToken()) {
+      this.router.navigate(['/history']);
+    } else {
+      alert('Please log in first to access your measurement history.');
+      this.router.navigate(['/login']);
+    }
   }
 
   goToDashboard() {

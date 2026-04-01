@@ -6,14 +6,19 @@
         </div>
         
         <div class="nav-actions">
+            <button (click)="goToHistory()" class="nav-btn ghost-btn">
+                <span class="icon">📋</span> <span class="hide-mobile">History</span>
+            </button>
+            
             <ng-container *ngIf="authService.getToken(); else noAuth">
-                <button (click)="goToHistory()" class="nav-btn ghost-btn">
-                    <span class="icon">📋</span> History
+                <button (click)="logout()" class="nav-btn outline-btn">
+                    <span class="btn-text">Logout</span>
                 </button>
-                <button (click)="logout()" class="nav-btn outline-btn">Logout</button>
             </ng-container>
             <ng-template #noAuth>
-                <button (click)="goToLogin()" class="nav-btn primary-btn">Login / Register</button>
+                <button (click)="goToLogin()" class="nav-btn primary-btn">
+                    <span class="btn-text">Login</span>
+                </button>
             </ng-template>
         </div>
     </header>

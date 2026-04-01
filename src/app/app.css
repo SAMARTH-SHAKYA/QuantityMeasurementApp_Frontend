@@ -103,12 +103,30 @@
 }
 
 /* ===== MOBILE RESPONSIVE NAVBAR ===== */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+    .hide-mobile {
+        display: none;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    .nav-btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+    }
+}
+
+@media (max-width: 500px) {
     .stylish-navbar {
-        width: 95%;
-        margin: 0.75rem auto;
+        width: 100%;
+        margin: 0;
         padding: 0.6rem 1rem;
-        border-radius: 20px;
+        border-radius: 0;
+        border-right: none;
+        border-left: none;
+        border-top: none;
     }
 
     .logo-text {
@@ -121,18 +139,23 @@
         font-size: 1rem;
     }
 
-    .nav-btn {
-        font-size: 0.82rem;
-        padding: 0.5rem 0.85rem;
-    }
-
     .nav-actions {
         gap: 0.5rem;
+    }
+    
+    .ghost-btn {
+        padding: 0.5rem; /* Icon only */
+    }
+    .ghost-btn .icon {
+        font-size: 1.2rem;
     }
 }
 
 @media (max-width: 380px) {
     .logo-text {
         display: none; /* hide text, show only logo icon on very small phones */
+    }
+    .stylish-navbar {
+        padding: 0.5rem 0.75rem;
     }
 }
