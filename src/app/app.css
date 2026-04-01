@@ -101,3 +101,38 @@
     display: flex;
     flex-direction: column;
 }
+
+/* ===== MOBILE RESPONSIVE NAVBAR ===== */
+@media (max-width: 600px) {
+    .stylish-navbar {
+        width: 95%;
+        margin: 0.75rem auto;
+        padding: 0.6rem 1rem;
+        border-radius: 20px;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+
+    .nav-btn {
+        font-size: 0.82rem;
+        padding: 0.5rem 0.85rem;
+    }
+
+    .nav-actions {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .logo-text {
+        display: none; /* hide text, show only logo icon on very small phones */
+    }
+}

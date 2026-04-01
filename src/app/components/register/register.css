@@ -200,14 +200,74 @@
     font-weight: 600;
 }
 
+/* ===== TABLET ===== */
 @media (max-width: 900px) {
     .auth-split-container {
         flex-direction: column;
+        width: 95%;
+        min-height: auto;
     }
     .auth-branding {
         padding: 3rem 2rem;
+        flex: none;
     }
     .brand-title {
         font-size: 2.5rem;
+    }
+    .auth-form-wrapper {
+        padding: 2.5rem 2rem;
+    }
+}
+
+/* ===== MOBILE (phones) ===== */
+@media (max-width: 600px) {
+    .auth-split-container {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .auth-branding {
+        padding: 2rem 1.5rem;
+    }
+    .brand-logo {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    .brand-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .brand-subtitle {
+        font-size: 0.95rem;
+    }
+    .auth-form-wrapper {
+        padding: 2rem 1.25rem;
+    }
+    .auth-card h2 {
+        font-size: 1.75rem;
+    }
+    .auth-instruction {
+        margin-bottom: 1.5rem;
+    }
+    .auth-btn {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}
+
+/* ===== VERY SMALL PHONES ===== */
+@media (max-width: 400px) {
+    .auth-branding {
+        display: none; /* Hide branding on tiny screens to maximize form space */
+    }
+    .auth-split-container {
+        min-height: 100vh;
+    }
+    .auth-form-wrapper {
+        padding: 2.5rem 1rem;
+        align-items: flex-start;
+        padding-top: 3rem;
     }
 }
