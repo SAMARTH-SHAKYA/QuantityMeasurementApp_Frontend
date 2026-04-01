@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+
 import { AuthService } from '../../services/auth';
 import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { environment } from '../../../environments/environment';
@@ -25,8 +25,7 @@ export class Login implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private socialAuthService: SocialAuthService,
-    private http: HttpClient
+    private socialAuthService: SocialAuthService
   ) {
     if (this.authService.getToken()) {
       this.router.navigate(['/dashboard']);
@@ -34,10 +33,16 @@ export class Login implements OnInit {
   }
 
   ngOnInit() {
-    // Silently ping the backend to wake up Render's free-tier server
-    // so by the time the user fills in the form, the server is already awake.
-    this.http.get(`${environment.apiUrl.replace('/api', '')}/swagger/v1/swagger.json`, { responseType: 'text' })
-      .subscribe({ next: () => this.isWarmingUp = false, error: () => this.isWarmingUp = false });
+    // Silently wake up Render's free-tier server. Using no-cors mode avoids 
+    // CORS errors in the console while still sending the wake-up HTTP request.
+    try {
+      fetch(`${environment.apiUrl.replace('/api', '')}`, { method: 'HEAD', mode: 'no-cors' })
+        .finally(() => this.isWarmingUp = false);
+    } catch {
+      this.isWarmingUp = false;
+    }
+    // Also set a timeout to stop showing the spinner after 8 seconds max
+    setTimeout(() => this.isWarmingUp = false, 8000);
 
     this.socialAuthService.authState.subscribe((user) => {
       if (user && user.idToken) {
