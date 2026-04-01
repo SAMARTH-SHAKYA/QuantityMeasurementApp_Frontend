@@ -37,7 +37,7 @@ export class Register implements OnInit {
         this.isLoading = true;
         this.authService.googleLogin(user.idToken).subscribe({
           next: (res: any) => {
-            const token = res.token || res;
+            const token = res?.token || res?.Token || (typeof res === 'string' ? res : '');
             this.authService.setToken(token);
             this.router.navigate(['/dashboard']);
           },
