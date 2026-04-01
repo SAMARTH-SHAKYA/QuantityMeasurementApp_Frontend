@@ -18,6 +18,16 @@
             <h2>Welcome Back</h2>
             <p class="auth-instruction">Please log in to your account to continue</p>
             
+            <!-- Server warmup banner (shows silently while backend pings on page load) -->
+            <div class="warmup-banner" *ngIf="isWarmingUp">
+                <div class="warmup-pulse"></div>
+                <span>Connecting to server<span class="ellipsis">...</span></span>
+            </div>
+            <div class="warmup-banner ready" *ngIf="!isWarmingUp">
+                <span class="ready-dot">●</span>
+                <span>Server ready</span>
+            </div>
+
             <div class="social-login-container">
                 <asl-google-signin-button type="standard" size="large" [width]="300"></asl-google-signin-button>
             </div>
@@ -41,8 +51,19 @@
                     {{ message }}
                 </div>
                 
+                <div class="cold-start-notice" *ngIf="isLoading">
+                    <div class="notice-icon">⏳</div>
+                    <div class="notice-text">
+                        <strong>Backend is warming up...</strong>
+                        <span>Our server on Render's free tier may take 30–60 seconds to wake up on first use. Please wait!</span>
+                    </div>
+                </div>
+                
                 <button type="submit" class="primary-btn auth-btn" [disabled]="isLoading">
-                    {{ isLoading ? 'Entering Dashboard...' : 'Login securely' }}
+                    <span *ngIf="!isLoading">Login securely</span>
+                    <span *ngIf="isLoading" class="loading-dots">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </span>
                 </button>
             </form>
             

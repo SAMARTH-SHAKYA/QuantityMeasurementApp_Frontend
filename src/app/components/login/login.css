@@ -212,3 +212,113 @@
         font-size: 2.5rem;
     }
 }
+/* Server Warm-up Banner */
+.warmup-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(255, 107, 0, 0.07);
+    border: 1px solid rgba(255, 107, 0, 0.15);
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    width: fit-content;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.warmup-banner.ready {
+    background: rgba(72, 187, 120, 0.08);
+    border-color: rgba(72, 187, 120, 0.25);
+    color: #2f855a;
+}
+
+.ready-dot {
+    font-size: 0.6rem;
+    color: #48bb78;
+}
+
+.warmup-pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-orange);
+    border-radius: 50%;
+    animation: pulse 1.2s infinite ease-in-out;
+    flex-shrink: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255,107,0,0.5); }
+    70% { transform: scale(1.1); opacity: 0.7; box-shadow: 0 0 0 8px rgba(255,107,0,0); }
+    100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255,107,0,0); }
+}
+
+@keyframes ellipsis {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+}
+
+/* Cold Start Notice */
+.cold-start-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: rgba(255, 107, 0, 0.07);
+    border: 1px solid rgba(255, 107, 0, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.notice-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.notice-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.notice-text strong {
+    font-size: 0.95rem;
+    color: var(--primary-orange);
+    font-weight: 700;
+}
+
+.notice-text span {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Animated Loading Dots */
+.loading-dots {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}

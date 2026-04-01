@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth';
 import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +20,13 @@ export class Login implements OnInit {
   message = '';
   isSuccess = false;
   isLoading = false;
+  isWarmingUp = true;
 
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private http: HttpClient
   ) {
     if (this.authService.getToken()) {
       this.router.navigate(['/dashboard']);
@@ -30,6 +34,11 @@ export class Login implements OnInit {
   }
 
   ngOnInit() {
+    // Silently ping the backend to wake up Render's free-tier server
+    // so by the time the user fills in the form, the server is already awake.
+    this.http.get(`${environment.apiUrl.replace('/api', '')}/swagger/v1/swagger.json`, { responseType: 'text' })
+      .subscribe({ next: () => this.isWarmingUp = false, error: () => this.isWarmingUp = false });
+
     this.socialAuthService.authState.subscribe((user) => {
       if (user && user.idToken) {
         this.isLoading = true;
