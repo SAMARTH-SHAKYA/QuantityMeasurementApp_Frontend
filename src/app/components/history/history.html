@@ -1,38 +1,68 @@
 <main class="history-container">
-    <div class="glass-panel">
-        <div class="history-header">
-            <h2>Past Operations</h2>
-            <a routerLink="/dashboard" class="back-btn">← Back to Dashboard</a>
+    <div class="history-widget">
+        <header class="history-header">
+            <div>
+                <h2 class="history-title">Activity History</h2>
+                <p class="history-subtitle">Your recent conversions and calculations</p>
+            </div>
+            <a routerLink="/dashboard" class="back-btn">
+                <span class="icon">➔</span> Back to Calculator
+            </a>
+        </header>
+
+        <div *ngIf="errorMessage" class="result-message error" style="margin: 2rem;">
+            {{ errorMessage }}
+        </div>
+
+        <div class="history-list" *ngIf="historyItems.length > 0 && !isLoading">
+            
+            <div class="history-card" *ngFor="let item of historyItems">
+                
+                <div class="card-left">
+                    <div class="type-badge" [ngClass]="getBadgeClass(item.measurementType)">
+                        <span class="badge-icon" *ngIf="item.measurementType === 'Length'">📏</span>
+                        <span class="badge-icon" *ngIf="item.measurementType === 'Weight'">⚖️</span>
+                        <span class="badge-icon" *ngIf="item.measurementType === 'Temperature'">🌡️</span>
+                        <span class="badge-icon" *ngIf="item.measurementType === 'Volume'">🧊</span>
+                        <span class="badge-letter" *ngIf="!['Length','Weight','Temperature','Volume'].includes(item.measurementType)">{{ (item.measurementType || 'U').charAt(0) }}</span>
+                    </div>
+                    <div class="history-details">
+                        <div class="history-type-name">{{ item.measurementType || 'Unknown' }}</div>
+                        <div class="history-action-type">{{ item.operationType || 'Action' }}</div>
+                    </div>
+                </div>
+
+                <div class="card-middle">
+                    <div class="calc-flow">
+                        <span class="value-chip">{{ item.firstOperand || '-' }}</span>
+                        <span class="flow-icon" *ngIf="item.operationType === 'Comparison'">
+                            {{ item.finalResult === 'Equal' ? '=' : '≠' }}
+                        </span>
+                        <span class="flow-icon" *ngIf="item.operationType !== 'Comparison'">➔</span>
+                        <span class="value-chip" *ngIf="item.secondOperand">{{ item.secondOperand }}</span>
+                    </div>
+                </div>
+
+                <div class="card-right">
+                    <div class="final-result" [class.error-result]="item.hasError">
+                        {{ item.hasError ? 'Error: ' + item.errorMessage : (item.finalResult || '-') }}
+                    </div>
+                    <div class="timestamp">{{ item.timestamp | date:'MMM d, hh:mm a' }}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div *ngIf="isLoading" class="loading-state">
+            <div class="spinner"></div>
+            <p>Fetching your history...</p>
+        </div>
+
+        <div *ngIf="historyItems.length === 0 && !isLoading" class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>No Records Found</h3>
+            <p>Perform a calculation or conversion to see your history appear here.</p>
         </div>
         
-        <div *ngIf="errorMessage" class="result-message error">{{ errorMessage }}</div>
-        
-        <div class="table-container" *ngIf="historyItems.length > 0 && !isLoading">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Action</th>
-                        <th>Value 1</th>
-                        <th>Value 2</th>
-                        <th>Result</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of historyItems">
-                        <td><span class="badge" [ngClass]="getBadgeClass(item.measurementType)">{{ item.measurementType || 'Unknown' }}</span></td>
-                        <td>{{ item.operationType || 'N/A' }}</td>
-                        <td>{{ item.firstOperand || '-' }}</td>
-                        <td>{{ item.secondOperand || '-' }}</td>
-                        <td><strong>{{ item.hasError ? 'Error: ' + item.errorMessage : (item.finalResult || '-') }}</strong></td>
-                        <td>{{ item.timestamp | date:'MMM d, hh:mm a' }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div *ngIf="isLoading" class="loading">Loading history...</div>
-        <div *ngIf="historyItems.length === 0 && !isLoading" class="empty-state">No measurement history found. Go make some!</div>
     </div>
 </main>

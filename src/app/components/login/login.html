@@ -1,25 +1,52 @@
-<div class="auth-container">
-    <div class="glass-panel auth-card">
-        <h2>Welcome Back</h2>
-        
-        <div style="text-align: center; margin: 20px 0; display: flex; justify-content: center;">
-            <asl-google-signin-button type="standard" size="large"></asl-google-signin-button>
+<div class="auth-split-container">
+    <!-- Left Side: Branding / Illustration area -->
+    <div class="auth-branding">
+        <div class="brand-content">
+            <div class="brand-logo">Q</div>
+            <h1 class="brand-title">Quantity <br> Measurement</h1>
+            <p class="brand-subtitle">The most elegant way to convert, compare, and calculate your metrics.</p>
         </div>
+        
+        <!-- Background decorative elements for the orange side -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
-        <div style="text-align: center; margin-bottom: 20px; font-size: 0.9em; color: #888;">OR</div>
+    <!-- Right Side: Clean Form -->
+    <div class="auth-form-wrapper">
+        <div class="auth-card">
+            <h2>Welcome Back</h2>
+            <p class="auth-instruction">Please log in to your account to continue</p>
+            
+            <div class="social-login-container">
+                <asl-google-signin-button type="standard" size="large" [width]="300"></asl-google-signin-button>
+            </div>
 
-        <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label class="form-label" for="username">Username</label>
-                <input type="text" id="username" class="form-input" required placeholder="Enter your username" [(ngModel)]="username" name="username">
+            <div class="auth-divider">
+                <span>OR</span>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="password">Password</label>
-                <input type="password" id="password" class="form-input" required placeholder="Enter your password" [(ngModel)]="password" name="password">
-            </div>
-            <div id="auth-message" class="result-message" [class.hidden]="!message" [class.success]="isSuccess" [class.error]="!isSuccess">{{ message }}</div>
-            <button type="submit" class="primary-btn auth-btn" [disabled]="isLoading">{{ isLoading ? 'Logging in...' : 'Login' }}</button>
-        </form>
-        <a routerLink="/register" class="auth-link">Don't have an account? <strong>Register here</strong></a>
+
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-input" required placeholder="Choose a username" [(ngModel)]="username" name="username">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required placeholder="Enter your password" [(ngModel)]="password" name="password">
+                </div>
+                
+                <div id="auth-message" class="result-message" [class.hidden]="!message" [class.success]="isSuccess" [class.error]="!isSuccess">
+                    {{ message }}
+                </div>
+                
+                <button type="submit" class="primary-btn auth-btn" [disabled]="isLoading">
+                    {{ isLoading ? 'Entering Dashboard...' : 'Login securely' }}
+                </button>
+            </form>
+            
+            <a routerLink="/register" class="auth-link">New to the platform? <strong>Create an account</strong></a>
+        </div>
     </div>
 </div>

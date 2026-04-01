@@ -1,13 +1,24 @@
-<header class="app-header">
-    <h1 (click)="goToDashboard()" style="cursor: pointer;">Welcome To Quantity Measurement</h1>
-    <div class="header-actions">
-        <ng-container *ngIf="authService.getToken(); else noAuth">
-            <button (click)="goToHistory()" class="nav-btn">History</button>
-            <button (click)="logout()" class="nav-btn secondary">Logout</button>
-        </ng-container>
-        <ng-template #noAuth>
-            <button (click)="goToLogin()" class="nav-btn">Login / Register</button>
-        </ng-template>
-    </div>
-</header>
-<router-outlet></router-outlet>
+<div class="app-layout">
+    <header class="stylish-navbar">
+        <div class="logo-area" (click)="goToDashboard()">
+            <div class="logo-icon">Q</div>
+            <span class="logo-text">Quantity <span class="highlight">Measure</span></span>
+        </div>
+        
+        <div class="nav-actions">
+            <ng-container *ngIf="authService.getToken(); else noAuth">
+                <button (click)="goToHistory()" class="nav-btn ghost-btn">
+                    <span class="icon">📋</span> History
+                </button>
+                <button (click)="logout()" class="nav-btn outline-btn">Logout</button>
+            </ng-container>
+            <ng-template #noAuth>
+                <button (click)="goToLogin()" class="nav-btn primary-btn">Login / Register</button>
+            </ng-template>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

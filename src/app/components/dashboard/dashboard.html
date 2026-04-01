@@ -1,72 +1,103 @@
 <main class="dashboard-container">
-    <section class="section">
-        <h2 class="section-title">CHOOSE TYPE</h2>
-        <div class="card-grid" id="type-cards">
-            <div *ngFor="let type of objectKeys(unitData)" 
-                 class="type-card" 
-                 [class.active]="currentType === type"
-                 (click)="selectType(type)">
-                <div class="icon-container">{{ getIcon(type) }}</div>
-                <span>{{ type | titlecase }}</span>
+    <div class="dashboard-grid">
+        
+        <!-- Left Column: Type Selector -->
+        <aside class="type-sidebar">
+            <h2 class="sidebar-title">Categories</h2>
+            <div class="type-list">
+                <button *ngFor="let type of objectKeys(unitData)" 
+                     class="type-item" 
+                     [class.active]="currentType === type"
+                     (click)="selectType(type)">
+                    <span class="type-icon">{{ getIcon(type) }}</span>
+                    <span class="type-name">{{ type | titlecase }}</span>
+                    <div class="active-indicator" *ngIf="currentType === type"></div>
+                </button>
             </div>
-        </div>
-    </section>
+        </aside>
 
-    <section class="section">
-        <h2 class="section-title">CHOOSE ACTION</h2>
-        <div class="action-tabs" id="action-tabs">
-            <button class="action-tab" [class.active]="currentAction === 'comparison'" (click)="selectAction('comparison')">Comparison</button>
-            <button class="action-tab" [class.active]="currentAction === 'conversion'" (click)="selectAction('conversion')">Conversion</button>
-            <button class="action-tab" [class.active]="currentAction === 'arithmetic'" (click)="selectAction('arithmetic')" *ngIf="!unsupportedArithmeticTypes.includes(currentType)">Arithmetic</button>
-        </div>
-    </section>
-
-    <section class="section input-section glass-panel">
-        <div class="input-container">
-            <div class="input-group">
-                <label for="from-value">{{ fromLabel }}</label>
-                <input type="number" class="value-input" [(ngModel)]="value1">
-                <select class="unit-select" [(ngModel)]="unit1">
-                    <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
-                </select>
-            </div>
-
-            <div class="action-divider">
-                <span class="operation-icon">{{ operationIcon }}</span>
-            </div>
-
-            <div class="input-group">
-                <label for="to-value">{{ toLabel }}</label>
-                <input type="number" class="value-input" [(ngModel)]="value2" [readonly]="isConversion">
-                <select class="unit-select" [(ngModel)]="unit2">
-                    <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
-                </select>
-            </div>
+        <!-- Right Column: Calculator Space -->
+        <section class="calculator-workspace">
             
-            <div class="action-divider" *ngIf="currentAction === 'arithmetic'">
-                <span class="operation-icon">➔</span>
+            <header class="workspace-header">
+                <div class="action-segment-control">
+                    <button class="segment" [class.active]="currentAction === 'comparison'" (click)="selectAction('comparison')">
+                        Compare
+                    </button>
+                    <button class="segment" [class.active]="currentAction === 'conversion'" (click)="selectAction('conversion')">
+                        Convert
+                    </button>
+                    <button class="segment" [class.active]="currentAction === 'arithmetic'" (click)="selectAction('arithmetic')" *ngIf="!unsupportedArithmeticTypes.includes(currentType)">
+                        Calculate
+                    </button>
+                </div>
+            </header>
+
+            <div class="calculator-card glass-panel">
+                <div class="calc-inner">
+                    <!-- Value 1 Input -->
+                    <div class="calc-block">
+                        <label class="floating-label">{{ fromLabel }}</label>
+                        <div class="input-row">
+                            <input type="number" class="huge-input" [(ngModel)]="value1">
+                            <select class="styled-select" [(ngModel)]="unit1">
+                                <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Divider / Icon -->
+                    <div class="calc-divider">
+                        <div class="circle-icon">{{ operationIcon }}</div>
+                    </div>
+
+                    <!-- Value 2 Input -->
+                    <div class="calc-block">
+                        <label class="floating-label">{{ toLabel }}</label>
+                        <div class="input-row">
+                            <input type="number" class="huge-input" [(ngModel)]="value2" [readonly]="isConversion" [class.readonly-mode]="isConversion">
+                            <select class="styled-select" [(ngModel)]="unit2">
+                                <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Result Unit (Arithmetic only) -->
+                    <ng-container *ngIf="currentAction === 'arithmetic'">
+                        <div class="calc-divider">
+                            <div class="circle-icon">➔</div>
+                        </div>
+                        <div class="calc-block result-block">
+                            <label class="floating-label">Target Unit</label>
+                            <div class="input-row">
+                                <div class="huge-placeholder">?</div>
+                                <select class="styled-select" [(ngModel)]="targetUnit">
+                                    <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Result Area and Actions -->
+                <div class="calc-footer">
+                    <div class="result-message" [class.hidden]="!message" [class.success]="isSuccess" [class.error]="!isSuccess">
+                        {{ message }}
+                    </div>
+                
+                    <div class="action-buttons" *ngIf="currentAction !== 'arithmetic'">
+                        <button class="primary-btn execute-btn" (click)="executeAction()">{{ executeBtnText }}</button>
+                    </div>
+                    
+                    <div class="math-buttons" *ngIf="currentAction === 'arithmetic'">
+                        <button class="primary-btn math-btn" (click)="executeArithmetic('add')"><span class="math-sign">+</span> Add</button>
+                        <button class="primary-btn math-btn" (click)="executeArithmetic('subtract')"><span class="math-sign">−</span> Sub</button>
+                        <button class="primary-btn math-btn" (click)="executeArithmetic('multiply')"><span class="math-sign">×</span> Mul</button>
+                        <button class="primary-btn math-btn" (click)="executeArithmetic('divide')"><span class="math-sign">÷</span> Div</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="input-group" *ngIf="currentAction === 'arithmetic'" style="opacity: 0.9;">
-                <label for="target-unit">RESULT UNIT</label>
-                <input type="text" class="value-input" value="?" readonly style="background-color: transparent; border: none; text-align: center; font-size: 1.5rem; font-weight: bold; color: var(--text-dark); margin-top: 10px; cursor: default; user-select: none;">
-                <select class="unit-select" [(ngModel)]="targetUnit">
-                    <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="result-message" [class.hidden]="!message" [class.success]="isSuccess" [class.error]="!isSuccess">{{ message }}</div>
-        
-        <div class="action-button-container" *ngIf="currentAction !== 'arithmetic'">
-            <button class="primary-btn" (click)="executeAction()">{{ executeBtnText }}</button>
-        </div>
-        
-        <div class="action-button-container" *ngIf="currentAction === 'arithmetic'" style="display: flex; gap: 10px; justify-content: center;">
-            <button class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;" (click)="executeArithmetic('add')">Add</button>
-            <button class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;" (click)="executeArithmetic('subtract')">Subtract</button>
-            <button class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;" (click)="executeArithmetic('multiply')">Multiply</button>
-            <button class="primary-btn" style="flex: 1; padding: 0.8rem 1rem;" (click)="executeArithmetic('divide')">Divide</button>
-        </div>
-    </section>
+        </section>
+    </div>
 </main>
