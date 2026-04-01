@@ -18,6 +18,14 @@
             <h2>Create Account</h2>
             <p class="auth-instruction">Start measuring smarter, securely.</p>
             
+            <div class="social-login-container">
+                <asl-google-signin-button type="standard" size="large" [width]="300"></asl-google-signin-button>
+            </div>
+
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+
             <form (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label class="form-label" for="username">Username</label>
