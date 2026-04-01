@@ -38,12 +38,14 @@ export class History implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
+        console.error('History API error:', err.status, err.error);
         if (err.status === 401 || err.status === 403) {
+          // Token expired or invalid - show session expired card
           this.errorMessage = 'SESSION_EXPIRED';
         } else if (err.status === 0) {
           this.errorMessage = 'Cannot reach the server. It may be starting up — please wait a moment and try again.';
         } else {
-          this.errorMessage = `Failed to load history (Error ${err.status}).`;
+          this.errorMessage = `Failed to load history (Error ${err.status}: ${err.error?.message || err.message || 'Unknown'}).`;
         }
       }
     });
