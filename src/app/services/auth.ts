@@ -23,7 +23,17 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    const token = localStorage.getItem('jwt_token');
+    // Validate it looks like a real JWT (3 base64 parts separated by dots)
+    if (token && token.split('.').length === 3) {
+      return token;
+    }
+    // Token is corrupt/invalid - clear it so the user can log in fresh
+    if (token) {
+      console.warn('Clearing invalid token from localStorage');
+      localStorage.removeItem('jwt_token');
+    }
+    return null;
   }
 
   setToken(token: string) {
