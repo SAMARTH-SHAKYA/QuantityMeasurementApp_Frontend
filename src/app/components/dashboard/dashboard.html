@@ -49,7 +49,7 @@
 
             <div class="input-group" *ngIf="currentAction === 'arithmetic'" style="opacity: 0.9;">
                 <label for="target-unit">RESULT UNIT</label>
-                <input type="text" class="value-input" value="?" readonly style="background-color: transparent; border: none; text-align: center; font-size: 1.5rem; font-weight: bold; color: var(--text-color); margin-top: 10px; cursor: default; user-select: none;">
+                <input type="text" class="value-input" value="?" readonly style="background-color: transparent; border: none; text-align: center; font-size: 1.5rem; font-weight: bold; color: var(--text-dark); margin-top: 10px; cursor: default; user-select: none;">
                 <select class="unit-select" [(ngModel)]="targetUnit">
                     <option *ngFor="let u of availableUnits" [value]="u">{{ u }}</option>
                 </select>
