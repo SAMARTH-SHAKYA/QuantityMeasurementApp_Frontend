@@ -34,10 +34,6 @@ export class Dashboard implements OnInit {
   constructor(private measurementService: MeasurementService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    if (!this.authService.getToken()) {
-      this.router.navigate(['/login']);
-      return;
-    }
     this.populateUnits();
   }
 

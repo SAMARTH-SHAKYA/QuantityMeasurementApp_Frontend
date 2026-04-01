@@ -26,10 +26,14 @@ export class MeasurementService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private getHeaders() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.authService.getToken()}`
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
   }
 
   convert(body: any) {

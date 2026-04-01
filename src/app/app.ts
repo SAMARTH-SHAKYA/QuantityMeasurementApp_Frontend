@@ -25,4 +25,8 @@ export class App {
   goToDashboard() {
     this.router.navigate(['/dashboard']);
   }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

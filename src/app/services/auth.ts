@@ -14,6 +14,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { username, password });
   }
 
+  googleLogin(idToken: string) {
+    return this.http.post(`${this.apiUrl}/google-login`, { idToken });
+  }
+
   register(username: string, email: string, password: string) {
     return this.http.post(`${this.apiUrl}/register`, { username, email, password });
   }
