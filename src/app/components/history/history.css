@@ -221,6 +221,31 @@
     color: var(--text-muted);
 }
 
+/* Session Expired Card */
+.session-expired-card {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.expired-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.session-expired-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.session-expired-card p {
+    color: var(--text-muted);
+    max-width: 320px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
 @media (max-width: 900px) {
     .history-card {
         grid-template-columns: 1fr;

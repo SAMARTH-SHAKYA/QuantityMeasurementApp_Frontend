@@ -37,13 +37,14 @@ export class History implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        if (err.status === 401) {
-          this.authService.logout();
-          this.router.navigate(['/login']);
-          return;
-        }
-        this.errorMessage = 'Failed to load history.';
         this.isLoading = false;
+        if (err.status === 401 || err.status === 403) {
+          this.errorMessage = 'SESSION_EXPIRED';
+        } else if (err.status === 0) {
+          this.errorMessage = 'Cannot reach the server. It may be starting up — please wait a moment and try again.';
+        } else {
+          this.errorMessage = `Failed to load history (Error ${err.status}).`;
+        }
       }
     });
   }

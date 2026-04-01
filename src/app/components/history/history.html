@@ -10,7 +10,16 @@
             </a>
         </header>
 
-        <div *ngIf="errorMessage" class="result-message error" style="margin: 2rem;">
+        <div *ngIf="errorMessage === 'SESSION_EXPIRED'" class="session-expired-card">
+            <div class="expired-icon">🔐</div>
+            <h3>Session Expired</h3>
+            <p>Your login session has expired. Please log in again to view your history.</p>
+            <a routerLink="/login" class="primary-btn" style="text-decoration:none; display:inline-block; padding: 0.9rem 2rem; margin-top: 1rem;">
+                Login Again
+            </a>
+        </div>
+
+        <div *ngIf="errorMessage && errorMessage !== 'SESSION_EXPIRED'" class="result-message error" style="margin: 2rem;">
             {{ errorMessage }}
         </div>
 
